@@ -1,10 +1,13 @@
 import numpy as np
+import random
 
 class Environment:
     def __init__(self, filename):
         self.grid = []
         self.start = None
         self.goal = None
+        self.dynamic_obstacles = []  # store list of dynamic obstacles
+        self.time_step = 0
         self.load_map(filename)
 
     def load_map(self, filename):
@@ -16,51 +19,64 @@ class Environment:
             for j, val in enumerate(line.strip().split()):
                 if val == "S":
                     self.start = (i, j)
-                    row.append(1)   # start treated as cost=1
+                    row.append(1)
                 elif val == "G":
                     self.goal = (i, j)
-                    row.append(1)   # goal treated as cost=1
+                    row.append(1)
                 elif val == "X":
-                    row.append(-1)  # obstacle
+                    row.append(-1)
+                elif val == "D":
+                    self.dynamic_obstacles.append({"pos": (i, j), "path": [(i, j)], "index": 0})
+                    row.append(-2)  # mark as dynamic obstacle initially
                 else:
                     row.append(int(val))
             self.grid.append(row)
 
         self.grid = np.array(self.grid)
 
-    def display_grid(self):
-        print("Grid Map:")
-        print(self.grid)
-
-    def get_start_goal(self):
-        return self.start, self.goal
-
-    # ✅ Step 3 utilities -----------------------------
-
+    # Step 3 utilities
     def in_bounds(self, pos):
-        """Check if position is inside grid"""
         x, y = pos
         return 0 <= x < self.grid.shape[0] and 0 <= y < self.grid.shape[1]
 
     def is_passable(self, pos):
-        """Check if cell is not an obstacle"""
         x, y = pos
-        return self.grid[x][y] != -1
+        return self.grid[x][y] > 0  # -1 = static obstacle, -2 = dynamic obstacle
 
     def get_neighbors(self, pos):
-        """Return 4-connected neighbors"""
         x, y = pos
-        neighbors = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
-        valid_neighbors = [
-            (nx, ny) for nx, ny in neighbors if self.in_bounds((nx, ny)) and self.is_passable((nx, ny))
-        ]
-        return valid_neighbors
+        neighbors = [(x-1,y),(x+1,y),(x,y-1),(x,y+1)]
+        valid = [(nx, ny) for nx, ny in neighbors if self.in_bounds((nx, ny)) and self.is_passable((nx, ny))]
+        return valid
 
     def get_cost(self, pos):
-        """Return terrain cost of a cell"""
         x, y = pos
-        return self.grid[x][y]
+        return self.grid[x][y] if self.grid[x][y] > 0 else float('inf')
 
-    # placeholder for step 5 (dynamic obstacles)
-    def update_dynamic_obstacles(self, time_step):
-        pass
+    # ✅ Step 5: Dynamic Obstacle Updates
+    def update_dynamic_obstacles(self, mode="deterministic"):
+        self.time_step += 1
+
+        # clear old positions
+        for obs in self.dynamic_obstacles:
+            x, y = obs["pos"]
+            self.grid[x][y] = 1  # reset cell
+
+        for obs in self.dynamic_obstacles:
+            if mode == "deterministic":
+                # simple deterministic movement (cycle: up → right → down → left)
+                directions = [(-1,0),(0,1),(1,0),(0,-1)]
+                dx, dy = directions[self.time_step % len(directions)]
+                new_x, new_y = obs["pos"][0]+dx, obs["pos"][1]+dy
+                if self.in_bounds((new_x, new_y)) and self.grid[new_x][new_y] > 0:
+                    obs["pos"] = (new_x, new_y)
+
+            elif mode == "random":
+                # move randomly
+                neighbors = self.get_neighbors(obs["pos"])
+                if neighbors:
+                    obs["pos"] = random.choice(neighbors)
+
+            # mark new position as dynamic obstacle
+            x, y = obs["pos"]
+            self.grid[x][y] = -2
