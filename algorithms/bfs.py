@@ -1,21 +1,35 @@
+import time
 from collections import deque
 
 def bfs(environment):
     start, goal = environment.get_start_goal()
-    queue = deque([(start, [start])])  # (position, path)
-    visited = set([start])
+    frontier = deque([start])
+    came_from = {start: None}
     nodes_expanded = 0
 
-    while queue:
-        pos, path = queue.popleft()
+    start_time = time.time()
+
+    while frontier:
+        current = frontier.popleft()
         nodes_expanded += 1
 
-        if pos == goal:
-            return path, len(path)-1, nodes_expanded  # cost = steps
+        if current == goal:
+            break
 
-        for neighbor in environment.get_neighbors(pos):
-            if neighbor not in visited:
-                visited.add(neighbor)
-                queue.append((neighbor, path + [neighbor]))
+        for neighbor in environment.get_neighbors(current):
+            if neighbor not in came_from:
+                frontier.append(neighbor)
+                came_from[neighbor] = current
 
-    return None, float("inf"), nodes_expanded
+    path = []
+    cost = 0
+    if goal in came_from:
+        node = goal
+        while node is not None:
+            path.append(node)
+            cost += environment.get_cost(node)
+            node = came_from[node]
+        path.reverse()
+
+    runtime = time.time() - start_time
+    return path, cost, nodes_expanded, runtime

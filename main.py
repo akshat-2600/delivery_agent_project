@@ -1,28 +1,39 @@
-# from environment import Environment
-
-# if __name__ == "__main__":
-#     # Load one of the maps
-#     env = Environment("maps/small_map.txt")
-#     env.display_grid()
-#     start, goal = env.get_start_goal()
-#     print("Start:", start)
-#     print("Goal:", goal)
-
 from environment import Environment
 from agent import Agent
-from visualize import Visualizer
+from visualize import Visualizer, plot_path
+from algorithms import bfs, ucs, astar
 
-env = Environment("maps/dynamic_map.txt")
-agent = Agent(env)
-viz = Visualizer(env)
+maps = [
+    "maps/small_map.txt",
+    "maps/medium_map.txt",
+    "maps/large_map.txt",
+    "maps/dynamic_map.txt"
+]
 
-print("Initial Map:")
-viz.display(agent.position)
+algorithms = {
+    "BFS": bfs,
+    "UCS": ucs,
+    "ASTAR": astar
+}
 
-# simulate moves
-moves = [(0,1),(0,2)]
-for step, move in enumerate(moves, start=1):
-    agent.move(move)
-    env.update_dynamic_obstacles(mode="deterministic")
-    print(f"Step {step}:")
-    viz.display(agent.position)
+if __name__ == "__main__":
+    for map_file in maps:
+        print(f"\n=== Running on Map: {map_file} ===")
+        env = Environment(map_file)
+        agent = Agent(env)
+        viz = Visualizer(env)
+
+        print("Initial Grid:")
+        viz.display(agent.position)
+
+        for name, algo in algorithms.items():
+            print(f"\n--- {name} ---")
+            path, cost, nodes, runtime = algo(env)
+
+            print(f"Path cost: {cost}")
+            print(f"Nodes expanded: {nodes}")
+            print(f"Runtime: {runtime:.6f} sec")
+
+            viz.display(agent.position, path)
+
+            plot_path(env, path, title=f"{name} on {map_file}")

@@ -5,7 +5,7 @@ class Agent:
         self.env = environment
         self.position = environment.start
         self.goal = environment.goal
-        self.path = [self.position]  # stores visited path
+        self.path = [self.position]  
         self.total_cost = 0
 
     def reset(self):
