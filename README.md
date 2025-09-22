@@ -34,16 +34,25 @@ Outputs are printed to console, saved as visual PNGs, and recorded to results.cs
 delivery_agent_project/
 
  │── algorithms/ 
+
     └── init.py 
+
        ├── astar.py
+
        ├── bfs.py  
+
        ├── ucs.py
+
        ├── replanner.py 
 
  │── maps/   
+
     └── dynamic_map.txt 
+
     ├── large_map.txt 
+
     ├── medium_map.txt
+    
     ├── small_map.txt
 
  │── agent.py    
@@ -55,7 +64,7 @@ delivery_agent_project/
  │── README.md 
 
  │── requirements.txt
- 
+
  │── visualize.py 
                 
 ---
