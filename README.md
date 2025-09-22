@@ -29,9 +29,25 @@ Outputs are printed to console, saved as visual PNGs, and recorded to results.cs
 
 ## Project structure
 
-delivery_agent_project/ │── algorithms/ │   ├── bfs.py │   ├── ucs.py │   ├── astar.py │   ├── replanner.py │   └── init.py │ │── maps/ │   ├── small_map.txt │   ├── medium_map.txt │   ├── large_map.txt │   └── dynamic_map.txt │ │── environment.py │── agent.py │── visualize.py │── main.py                # runs experiments, saves results.csv and plots │── test_experiments.py    # optional: alternative runner │── results/               # output PNGs (created at runtime) │── results.csv            # experiment results (created at runtime) │── README.md │── requirements.md │── requirements.txt
-
----
+delivery_agent_project/ 
+ │── algorithms/ 
+    └── init.py 
+       ├── astar.py
+       ├── bfs.py  
+       ├── ucs.py
+       ├── replanner.py    
+ │── maps/   
+    └── dynamic_map.txt 
+    ├── large_map.txt 
+    ├── medium_map.txt
+    ├── small_map.txt
+ │── agent.py    
+ │── environment.py 
+ │── main.py
+ │── README.md 
+ │── requirements.txt
+ │── visualize.py 
+                
 
 ## Map format
 Plain text, rows separated by newline, tokens separated by spaces:
