@@ -4,6 +4,8 @@
 ![Algorithms](https://img.shields.io/badge/Algorithms-BFS%20%7C%20UCS%20%7C%20A*-yellow)
 ![Dynamic Replanning](https://img.shields.io/badge/Dynamic-Replanning-orange)
 
+---
+
 ## Project summary
 A compact, well-documented implementation of a delivery agent that finds efficient routes in a 2D grid city.  
 It includes static obstacles, varying terrain costs, and dynamic moving obstacles. The project implements and compares:
@@ -29,25 +31,34 @@ Outputs are printed to console, saved as visual PNGs, and recorded to results.cs
 
 ## Project structure
 
-delivery_agent_project/ 
+delivery_agent_project/
+
  │── algorithms/ 
     └── init.py 
        ├── astar.py
        ├── bfs.py  
        ├── ucs.py
-       ├── replanner.py    
+       ├── replanner.py 
+
  │── maps/   
     └── dynamic_map.txt 
     ├── large_map.txt 
     ├── medium_map.txt
     ├── small_map.txt
+
  │── agent.py    
- │── environment.py 
+
+ │── environment.py
+
  │── main.py
+
  │── README.md 
+
  │── requirements.txt
+ 
  │── visualize.py 
                 
+---
 
 ## Map format
 Plain text, rows separated by newline, tokens separated by spaces:
