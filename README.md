@@ -147,69 +147,72 @@ python main.py
 
 ### CLI / automated usage
 
-main.py is the single entry point. It currently runs:
+- main.py is the single entry point. It currently runs:
 
-BFS, UCS, A* on every map in maps/
+- BFS, UCS, A* on every map in maps/
 
-Prints human-readable logs to the console, including:
+- Prints human-readable logs to the console, including:
 
-ASCII grid of the map with the explored path
+- ASCII grid of the map with the explored path
 
-Path cost
+- Path cost
 
-Nodes expanded
+- Nodes expanded
 
-Runtime for each algorithm
+- Runtime for each algorithm
 
-
-Displays a live visualization of the path exploration (via matplotlib).
+- Displays a live visualization of the path exploration (via matplotlib).
 
 
 ### Reproducibility
 
-To reduce nondeterminism when using random dynamic obstacles:
+- To reduce nondeterminism when using random dynamic obstacles:
 
+```bash
 Edit environment.py to set random.seed(42)
+```
 
 Or set an environment variable:
 
+```bash
 export RANDOM_SEED=42
-
+```
 
 ### Troubleshooting & Common Gotchas
 
-ImportError for algorithms package:
+- ImportError for algorithms package:
 
-Ensure algorithms/_init_.py exists and exports bfs, ucs, astar, Replanner.
+- Ensure algorithms/_init_.py exists and exports bfs, ucs, astar, Replanner.
 
-Algorithm function signatures (must return 4-tuple):
+- Algorithm function signatures (must return 4-tuple):
 
-path, cost, nodes_expanded, runtime = algorithm(env)
+- path, cost, nodes_expanded, runtime = algorithm(env)
 
-Environment usage:
+### Environment usage:
 
-env = Environment("maps/small_map.txt")
-start, goal = env.get_start_goal()
+- env = Environment("maps/small_map.txt")
+- start, goal = env.get_start_goal()
 
-Replanner usage (recommended):
+### Replanner usage (recommended):
 
-planner = Replanner(env, algorithm="astar")
-path, cost, nodes_expanded, runtime = planner.replan()
+- planner = Replanner(env, algorithm="astar")
 
-Visualization helper (optional):
+- path, cost, nodes_expanded, runtime = planner.replan()
 
-Direct usage: viz.plot(path)
+### Visualization helper (optional):
+
+- Direct usage: viz.plot(path)
 
 
 ### Future Work 
 
-Add diagonal movement & corresponding admissible heuristics
+- Add diagonal movement & corresponding admissible heuristics
 
-Implement D* Lite for efficient real-time replanning
+- Implement D* Lite for efficient real-time replanning
 
-Add multiple agents with cooperative planning
+- Add multiple agents with cooperative planning
 
-GUI with interactive map editing & step-through visualization
+- GUI with interactive map editing & step-through visualization
 
 
 ### License & Credits
