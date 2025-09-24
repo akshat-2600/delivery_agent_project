@@ -113,13 +113,14 @@ X . . . .
 
 *Path Planning in A** on small map*
 
-<img src="results\astar_small_map.png" width="600"/>
+<img src="results\astar_small_map.png" width="400"/>
 
 ## Quick start (local)
 1. Clone repo and enter folder:
 ```bash
 git clone https://github.com/<youruser>/delivery_agent_project.git
 cd delivery_agent_project
+```
 
 2. Create & activate virtual environment:
 
@@ -129,117 +130,78 @@ python -m venv .venv
 .venv\Scripts\activate
 # macOS/Linux:
 source .venv/bin/activate
+```
 
 3. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+```
 
 4. Run the whole experiment (runs all maps & algorithms):
 
 ```bash
 python main.py
+```
 
 
-CLI / automated usage
+### CLI / automated usage
 
-main.py is intended as the single entry point. It currently runs:
+main.py is the single entry point. It currently runs:
 
 BFS, UCS, A* on every map in maps/
 
-Saves results.csv with rows containing: map, algorithm, cost, nodes_expanded, runtime
+Prints human-readable logs to the console, including:
 
-Saves per-run PNG visuals to results/<map>_<algorithm>.png
+ASCII grid of the map with the explored path
 
-Runs dynamic replanning for maps/dynamic_map.txt and saves the replanned path image
+Path cost
 
+Nodes expanded
 
-If you prefer or need flags, you can implement an argparse wrapper (suggested flags):
-
-python main.py --maps maps/ --no-gui --out results.csv
-
-(Repository includes main.py that runs everything without extra flags).
+Runtime for each algorithm
 
 
-
-Output format (expected for grading / evaluation)
-
-CSV: results.csv (header)
+Displays a live visualization of the path exploration (via matplotlib).
 
 
-map,algorithm,cost,nodes_expanded,runtime
-small_map.txt,BFS,5,12,0.000134
-small_map.txt,UCS,5,8,0.001248
+### Reproducibility
+
+To reduce nondeterminism when using random dynamic obstacles:
+
+Edit environment.py to set random.seed(42)
+
+Or set an environment variable:
+
+export RANDOM_SEED=42
 
 
-PNG images in results/ e.g. small_map_BFS.png, dynamic_map_Replanner.png.
-
-Console output: human-readable logs that show the ASCII grid, path cost, nodes expanded and runtime.
-
-
-Automated graders should verify:
-
-results.csv present in repo root after running python main.py
-
-Each algorithm returns a valid path (non-empty) for small/medium/large test maps
-
-Replanner runs on dynamic_map.txt and produces a dynamic_map_Replanner.png file
-
-
-
-Reproducibility
-
-To reduce nondeterminism when using random dynamic obstacle mode, set a fixed seed:
-
-Edit environment.py to set random.seed(42) or export RANDOM_SEED=42 and read it.
-
-
-Ensure results/ is writable by the runner and main.py exits with code 0 on success.
-
-
-
-Troubleshooting & common gotchas
+### Troubleshooting & Common Gotchas
 
 ImportError for algorithms package:
 
 Ensure algorithms/_init_.py exists and exports bfs, ucs, astar, Replanner.
 
+Algorithm function signatures (must return 4-tuple):
 
-Algorithm function signatures (for automated evaluation) must be:
-
-# Each algorithm returns 4-tuple:
 path, cost, nodes_expanded, runtime = algorithm(env)
 
-Environment must accept a map path:
+Environment usage:
 
 env = Environment("maps/small_map.txt")
 start, goal = env.get_start_goal()
 
-Replanner interface (recommended):
+Replanner usage (recommended):
 
 planner = Replanner(env, algorithm="astar")
 path, cost, nodes_expanded, runtime = planner.replan()
 
-Visualization helper (recommended):
+Visualization helper (optional):
 
-Standalone: plot_path(env, path, save_as="results/small_map_BFS.png")
-
-or viz.plot(path) method inside Visualizer class.
+Direct usage: viz.plot(path)
 
 
-
-What to submit / deliverables (for assignment)
-
-algorithms/ source code (BFS, UCS, A*, replanner) — well documented
-
-environment.py, agent.py, visualize.py, main.py
-
-maps/* — at least 4 maps (small/medium/large/dynamic)
-
-demo.gif or sequence of screenshots showing dynamic replanning in action
-
-
-Future work / ideas
+### Future Work 
 
 Add diagonal movement & corresponding admissible heuristics
 
@@ -250,7 +212,8 @@ Add multiple agents with cooperative planning
 GUI with interactive map editing & step-through visualization
 
 
-License & credits
+### License & Credits
 
-Project licensed under MIT.
-Author: Akshat Saxena (adapt the author/maintainer fields).
+Licensed under MIT
+
+Author: Akshat Saxena (adapt maintainer fields if needed)
