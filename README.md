@@ -11,7 +11,7 @@
 
 ### 🎥 Dynamic Replanning Demo
 <p align="center">
-  <img src="results\demo_video.mkv" width="500"/>
+  <img src="results\demo_video.gif" width="500"/>
 </p>
 
 ---
@@ -104,12 +104,15 @@ X . . . .
 ### 🖼 Sample Visualizations
 
 *Path Planning in BFS on small map*
+
 <img src="results\bfs_small_map.png" width="400"/>
 
 *Path Planning in UCS on small map*
+
 <img src="results\ucs_small_map.png" width="400"/>
 
-*Path Planning in A* on small map*
+*Path Planning in A** on small map*
+
 <img src="results\astar_small_map.png" width="600"/>
 
 ## Quick start (local)
@@ -120,8 +123,7 @@ cd delivery_agent_project
 
 2. Create & activate virtual environment:
 
-
-
+```bash
 python -m venv .venv
 # Windows:
 .venv\Scripts\activate
@@ -130,14 +132,13 @@ source .venv/bin/activate
 
 3. Install dependencies:
 
-
-
+```bash
 pip install -r requirements.txt
 
 4. Run the whole experiment (runs all maps & algorithms):
 
+```bash
 python main.py
-
 
 
 CLI / automated usage
@@ -235,14 +236,7 @@ environment.py, agent.py, visualize.py, main.py
 
 maps/* — at least 4 maps (small/medium/large/dynamic)
 
-results.csv (sample result after run)
-
-results/ folder with example PNGs
-
-report.pdf (≤6 pages): environment model, agent design, heuristics, experimental tables & plots, analysis & conclusion
-
-demo.mp4 or sequence of screenshots showing dynamic replanning in action
-
+demo.gif or sequence of screenshots showing dynamic replanning in action
 
 
 Future work / ideas
@@ -254,7 +248,6 @@ Implement D* Lite for efficient real-time replanning
 Add multiple agents with cooperative planning
 
 GUI with interactive map editing & step-through visualization
-
 
 
 License & credits
