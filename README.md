@@ -4,6 +4,16 @@
 ![Algorithms](https://img.shields.io/badge/Algorithms-BFS%20%7C%20UCS%20%7C%20A*-yellow)
 ![Dynamic Replanning](https://img.shields.io/badge/Dynamic-Replanning-orange)
 
+<p align="center">
+  <img src="results\banner_logo.png" width="600"/>
+</p>
+
+
+### 🎥 Dynamic Replanning Demo
+<p align="center">
+  <img src="results\demo_video.mkv" width="500"/>
+</p>
+
 ---
 
 ## Project summary
@@ -91,6 +101,17 @@ X . . . .
 
 ---
 
+### 🖼 Sample Visualizations
+
+*Path Planning in BFS on small map*
+<img src="results\bfs_small_map.png" width="400"/>
+
+*Path Planning in UCS on small map*
+<img src="results\ucs_small_map.png" width="400"/>
+
+*Path Planning in A* on small map*
+<img src="results\astar_small_map.png" width="600"/>
+
 ## Quick start (local)
 1. Clone repo and enter folder:
 ```bash
@@ -115,15 +136,9 @@ pip install -r requirements.txt
 
 4. Run the whole experiment (runs all maps & algorithms):
 
-
-
 python main.py
 
 
-
-
-
----
 
 CLI / automated usage
 
@@ -145,7 +160,6 @@ python main.py --maps maps/ --no-gui --out results.csv
 (Repository includes main.py that runs everything without extra flags).
 
 
----
 
 Output format (expected for grading / evaluation)
 
@@ -155,7 +169,7 @@ CSV: results.csv (header)
 map,algorithm,cost,nodes_expanded,runtime
 small_map.txt,BFS,5,12,0.000134
 small_map.txt,UCS,5,8,0.001248
-...
+
 
 PNG images in results/ e.g. small_map_BFS.png, dynamic_map_Replanner.png.
 
@@ -172,8 +186,6 @@ Replanner runs on dynamic_map.txt and produces a dynamic_map_Replanner.png file
 
 
 
----
-
 Reproducibility
 
 To reduce nondeterminism when using random dynamic obstacle mode, set a fixed seed:
@@ -184,8 +196,6 @@ Edit environment.py to set random.seed(42) or export RANDOM_SEED=42 and read it.
 Ensure results/ is writable by the runner and main.py exits with code 0 on success.
 
 
-
----
 
 Troubleshooting & common gotchas
 
@@ -217,9 +227,6 @@ or viz.plot(path) method inside Visualizer class.
 
 
 
-
----
-
 What to submit / deliverables (for assignment)
 
 algorithms/ source code (BFS, UCS, A*, replanner) — well documented
@@ -238,8 +245,6 @@ demo.mp4 or sequence of screenshots showing dynamic replanning in action
 
 
 
----
-
 Future work / ideas
 
 Add diagonal movement & corresponding admissible heuristics
@@ -251,8 +256,6 @@ Add multiple agents with cooperative planning
 GUI with interactive map editing & step-through visualization
 
 
-
----
 
 License & credits
 
