@@ -9,13 +9,11 @@ class Agent:
         self.total_cost = 0
 
     def reset(self):
-        """Reset agent to start"""
         self.position = self.env.start
         self.path = [self.position]
         self.total_cost = 0
 
     def move(self, next_pos):
-        """Move agent to next position if valid"""
         if next_pos in self.env.get_neighbors(self.position):
             self.position = next_pos
             self.path.append(next_pos)

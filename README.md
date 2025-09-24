@@ -52,7 +52,7 @@ delivery_agent_project/
     ├── large_map.txt 
 
     ├── medium_map.txt
-    
+
     ├── small_map.txt
 
  │── agent.py    
@@ -81,7 +81,11 @@ Plain text, rows separated by newline, tokens separated by spaces:
 
 Example (5×5):
 
-S . . . G . X . . . . . . X . X . . . . . . . . .
+S . . . G 
+. X . . . 
+. . . X . 
+X . . . . 
+. . . . .
 
 ---
 
@@ -107,13 +111,12 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 
-4. Run the whole experiment (runs all maps & algorithms, saves results.csv and PNGs into results/):
+4. Run the whole experiment (runs all maps & algorithms):
 
 
 
 python main.py
 
-> If you are running on a headless system (CI/evaluation server), set the environment variable NO_PLOT=1 before running (see requirements.md for details).
 
 
 

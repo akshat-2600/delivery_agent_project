@@ -2,14 +2,15 @@ import time
 from algorithms.bfs import bfs
 from algorithms.ucs import ucs
 from algorithms.astar import astar
+from replan_logger import ReplanLogger
 
 class Replanner:
-    def _init_(self, environment, algorithm="astar"):
+    def __init__(self, environment, algorithm="astar"):
         self.env = environment
         self.algorithm = algorithm.lower()
+        self.logger = ReplanLogger()
 
     def run(self):
-        """Run the chosen algorithm and return results"""
         start_time = time.time()
 
         if self.algorithm == "bfs":
@@ -31,11 +32,20 @@ class Replanner:
             "runtime": runtime
         }
 
-    def replan(self, new_environment):
-        """Replan in case the environment changes dynamically"""
+    def replan(self, new_environment, old_path=None):
         self.env = new_environment
-        return self.run()
+        result = self.run()
+        self.logger.log_replan(
+            algorithm=result["algorithm"],
+            old_path=old_path,
+            new_path=result["path"],
+            cost=result["cost"],
+            nodes=result["nodes_expanded"],
+            runtime=result["runtime"]
+        )
+        return result
     
     def replan_agent(environment, algorithm="astar"):
         planner = Replanner(environment, algorithm)
         return planner.run()
+
