@@ -21,10 +21,10 @@ A compact, well-documented implementation of a delivery agent that finds efficie
 It includes static obstacles, varying terrain costs, and dynamic moving obstacles. The project implements and compares:
 
 - *Uninformed search*: BFS (for unit-cost grids), Uniform-Cost Search (UCS)  
-- *Informed search: A (Manhattan heuristic)  
+- *Informed search: A** (Manhattan heuristic)  
 - *Local/dynamic replanning: Replanner (uses A/UCS with map updates)  
 
-Outputs are printed to console, saved as visual PNGs, and recorded to results.csv for experiment comparison.
+Outputs are printed to console and also visible as matplotlib visuals.
 
 ---
 
@@ -35,7 +35,6 @@ Outputs are printed to console, saved as visual PNGs, and recorded to results.cs
 - Agent able to replan when obstacles move (deterministic or random modes)  
 - Metrics: *path cost, **nodes expanded, **runtime*  
 - ASCII console visualization and Matplotlib graphical plots (PNG)  
-- Experiment runner that tests algorithms across multiple maps and saves a results.csv
 
 ---
 
