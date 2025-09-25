@@ -22,7 +22,7 @@ It includes static obstacles, varying terrain costs, and dynamic moving obstacle
 
 - *Uninformed search*: BFS (for unit-cost grids), Uniform-Cost Search (UCS)  
 - *Informed search: A** (Manhattan heuristic)  
-- *Local/dynamic replanning: Replanner (uses A/UCS with map updates)  
+- *Local/dynamic replanning: Replanner (uses A**/UCS with map updates)  
 
 Outputs are printed to console and also visible as matplotlib visuals.
 
