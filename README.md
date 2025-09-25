@@ -50,9 +50,9 @@ delivery_agent_project/
 
        ├── bfs.py  
 
-       ├── ucs.py
+       ├── replanner.py
 
-       ├── replanner.py 
+       ├── ucs.py 
 
  │── maps/   
 
@@ -63,6 +63,18 @@ delivery_agent_project/
     ├── medium_map.txt
 
     ├── small_map.txt
+ |── results/
+    └── astar_small_map.png 
+
+    ├── banner_logo.png 
+
+    ├── bfs_small_map.png
+
+    ├── demo_video.gif
+  
+    ├── replan_log.txt
+
+    ├── ucs_small_map.png
 
  │── agent.py    
 
@@ -73,6 +85,8 @@ delivery_agent_project/
  │── README.md 
 
  │── replan_logger.py
+
+ │── requriements.md
 
  │── requirements.txt
 
@@ -100,7 +114,7 @@ X . . . .
 
 ---
 
-### 🖼 Sample Visualizations
+### Sample Visualizations
 
 *Path Planning in BFS on small map*
 
@@ -113,6 +127,19 @@ X . . . .
 *Path Planning in A** on small map*
 
 <img src="results\astar_small_map.png" width="400"/>
+
+---
+
+### Example Logger Output
+
+[INFO] Starting replanning on dynamic_map.txt
+[INFO] Algorithm: A* (Manhattan heuristic)
+[DEBUG] Initial path found with cost = 12, nodes expanded = 34
+[WARNING] Dynamic obstacle detected at (3,4) → replanning...
+[DEBUG] New path found with cost = 15, nodes expanded = 21
+[INFO] Goal reached successfully in 0.023s
+
+---
 
 ## Quick start (local)
 1. Clone repo and enter folder:

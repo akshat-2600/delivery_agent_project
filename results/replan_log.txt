@@ -1,10 +1,10 @@
 === Replanning Log ===
 
-[Time: 09:34:28] Replanning triggered
+[Time: 10:06:09] Replanning triggered
 Algorithm: ASTAR
 Previous path length: 0
 New path length: 19
 Path cost: 19
 Nodes expanded: 78
-Runtime: 0.001994 sec
+Runtime: 0.008967 sec
 ----------------------------------------
