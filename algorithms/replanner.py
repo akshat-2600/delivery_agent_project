@@ -10,42 +10,39 @@ class Replanner:
         self.algorithm = algorithm.lower()
         self.logger = ReplanLogger()
 
-    def run(self):
+    def run_once(self):
         start_time = time.time()
 
         if self.algorithm == "bfs":
-            path, cost, nodes_expanded = bfs(self.env)
+            path, cost, nodes_expanded, runtime = bfs(self.env)
         elif self.algorithm == "ucs":
-            path, cost, nodes_expanded = ucs(self.env)
+            path, cost, nodes_expanded, runtime = ucs(self.env)
         elif self.algorithm == "astar":
-            path, cost, nodes_expanded = astar(self.env)
+            path, cost, nodes_expanded, runtime = astar(self.env)
         else:
             raise ValueError("Invalid algorithm! Choose bfs, ucs, or astar.")
 
         runtime = round(time.time() - start_time, 6)
+        return path, cost, nodes_expanded, runtime
 
-        return {
-            "algorithm": self.algorithm.upper(),
-            "path": path,
-            "cost": cost,
-            "nodes_expanded": nodes_expanded,
-            "runtime": runtime
-        }
+    def replan(self, new_environment=None, old_path=None):
+        if new_environment:
+            self.env = new_environment
 
-    def replan(self, new_environment, old_path=None):
-        self.env = new_environment
-        result = self.run()
+        path, cost, nodes, runtime = self.run_once()
+
         self.logger.log_replan(
-            algorithm=result["algorithm"],
+            algorithm=self.algorithm.upper(),
             old_path=old_path,
-            new_path=result["path"],
-            cost=result["cost"],
-            nodes=result["nodes_expanded"],
-            runtime=result["runtime"]
+            new_path=path,
+            cost=cost,
+            nodes=nodes,
+            runtime=runtime
         )
-        return result
-    
+
+        return path, cost, nodes, runtime
+
+    @staticmethod
     def replan_agent(environment, algorithm="astar"):
         planner = Replanner(environment, algorithm)
-        return planner.run()
-
+        return planner.run_once()

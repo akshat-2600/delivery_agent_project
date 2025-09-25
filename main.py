@@ -1,7 +1,7 @@
 from environment import Environment
 from agent import Agent
 from visualize import Visualizer, plot_path
-from algorithms import bfs, ucs, astar
+from algorithms import bfs, ucs, astar, Replanner
 
 maps = [
     "maps/small_map.txt",
@@ -35,5 +35,19 @@ if __name__ == "__main__":
             print(f"Runtime: {runtime:.6f} sec")
 
             viz.display(agent.position, path)
-
             plot_path(env, path, title=f"{name} on {map_file}")
+
+        if "dynamic_map" in map_file:
+            print(f"\n--- REPLANNER ---")
+            planner = Replanner(env, algorithm="ASTAR")  
+            path, cost, nodes, runtime = planner.replan()
+
+            print(f"Path cost: {cost}")
+            print(f"Nodes expanded: {nodes}")
+            print(f"Runtime: {runtime:.6f} sec")
+
+            viz.display(agent.position, path)
+            plot_path(env, path, title=f"Replanner on {map_file}")
+
+
+

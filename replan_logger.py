@@ -2,7 +2,7 @@ import os
 import time
 
 class ReplanLogger:
-    def _init_(self, log_dir="results", log_file="replan_log.txt"):
+    def __init__(self, log_dir="results", log_file="replan_log.txt"):
         os.makedirs(log_dir, exist_ok=True)
         self.log_path = os.path.join(log_dir, log_file)
 
