@@ -132,12 +132,25 @@ X . . . .
 
 ### Example Logger Output
 
-[INFO] Starting replanning on dynamic_map.txt
-[INFO] Algorithm: A* (Manhattan heuristic)
-[DEBUG] Initial path found with cost = 12, nodes expanded = 34
-[WARNING] Dynamic obstacle detected at (3,4) → replanning...
-[DEBUG] New path found with cost = 15, nodes expanded = 21
-[INFO] Goal reached successfully in 0.023s
+```bash
+=== Replanning Log ===
+
+[Time: 10:06:09] Replanning triggered
+
+Algorithm: ASTAR
+
+Previous path length: 0
+
+New path length: 19
+
+Path cost: 19
+
+Nodes expanded: 78
+
+Runtime: 0.008967 sec
+
+----------------------------------------
+```
 
 ---
 
